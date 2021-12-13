@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Les musiciens</string>
+    <string name="phrase_nomMusicien">Nom musicien</string>
+    <string name="phrase_nombreDEtoiles">Nombre d\'étoiles</string>
+    <string name="phrase_musicienSelectionne">Musicien sélectionné</string>
 </resources>
