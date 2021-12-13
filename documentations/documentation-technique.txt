@@ -1,0 +1,25 @@
+====================================================================================
+URL du GIT HIB ANDROID DEMO :
+https://github.com/dncproduction/android-renforcement.git
+------------------------------------------------------------------------------------
+==> L'objectif du projet est de manipuler plusieurs concepts dont :
+
+Exploitation de la classe Application
+Gestion des préférences
+Le système de fichier, Fichiers Xml
+Utilisation des ContentProvider natif
+Base de données locales SQLite
+Mise en place de services Android
+Manipuler les notification
+Permissions Android
+Communication REST
+------------------------------------------------------------------------------------
+Configuration du projet Android :
+
+AppName : Les musiciens
+Package name : com.perso.lesmusiciens
+Dossier de projet : 
+C:\LOCAL_DATA\DORANCO\LOCAL-GIT\github-android-renforcement\app-demo-musiciens\
+Language : Java
+API LEVEL : 22
+Use legacy android.support librairies : YES
