@@ -66,7 +66,7 @@
         app:layout_constraintTop_toTopOf="@+id/xml_mainActivity_btn_voirTout" />
 
     <ListView
-        android:id="@+id/xml_mainActivity_listView_musiciens"
+        android:id="@+id/xml_mainActivity_listView_listeMusiciens"
         android:layout_width="409dp"
         android:layout_height="532dp"
         app:layout_constraintBottom_toBottomOf="parent"
