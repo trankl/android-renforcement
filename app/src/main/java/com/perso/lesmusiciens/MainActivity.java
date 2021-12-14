@@ -46,14 +46,20 @@ public class MainActivity extends AppCompatActivity {
         m_btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String l_str_nomMusicien = m_editText_nomMusicien.getText().toString();
-                int l_int_nombreEtoiles = Integer.parseInt(m_editText_nombreEtoiles.getText().toString());
-                boolean l_bool_musicienActif = m_switch_musicienActif.isActivated();
+                try {
+                    String l_str_nomMusicien = m_editText_nomMusicien.getText().toString();
+                    int l_int_nombreEtoiles = Integer.parseInt(m_editText_nombreEtoiles.getText().toString());
+                    boolean l_bool_musicienActif = m_switch_musicienActif.isChecked();
 
-                // On va créer une nouvelle instance de MusicienModel
-                MusicienModel l_obj_musicienModel = new MusicienModel(-1, l_str_nomMusicien, l_int_nombreEtoiles, l_bool_musicienActif);
+                    // On va créer une nouvelle instance de MusicienModel
+                    MusicienModel l_obj_musicienModel = new MusicienModel(-1, l_str_nomMusicien, l_int_nombreEtoiles, l_bool_musicienActif);
 
-                Toast.makeText(MainActivity.this, "CLICK SUR BOUTON AJOUTER NOM ["+l_str_nomMusicien+"] / ETOILES ["+l_int_nombreEtoiles+"] / ACTIF ["+l_bool_musicienActif+"]", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "CLICK SUR BOUTON AJOUTER NOM ["+l_str_nomMusicien+"] / ETOILES ["+l_int_nombreEtoiles+"] / ACTIF ["+l_bool_musicienActif+"]", Toast.LENGTH_LONG).show();
+                }
+                catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "PROBLEME LORS DE LA CREATION DU MUSICIEN ["+e.toString()+"]", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
