@@ -3,4 +3,6 @@
     <string name="phrase_nomMusicien">Nom musicien</string>
     <string name="phrase_nombreDEtoiles">Nombre d\'étoiles</string>
     <string name="phrase_musicienSelectionne">Musicien sélectionné</string>
+    <string name="mot_ajouter">Ajouter</string>
+    <string name="phrase_voirTout">VOIR TOUT</string>
 </resources>

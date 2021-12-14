@@ -47,21 +47,21 @@
         app:layout_constraintTop_toBottomOf="@+id/xml_number_mainActivity_nombreEtoiles" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/xml_mainActivity_btn_voirTout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Button"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        android:text="@string/phrase_voirTout"
+        app:layout_constraintEnd_toStartOf="@+id/xml_mainActivity_btn_ajouter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/xml_switch_mainActivity_selecteurMusiciens" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/xml_mainActivity_btn_ajouter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="@string/mot_ajouter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button"
-        app:layout_constraintStart_toEndOf="@+id/button" />
+        app:layout_constraintStart_toEndOf="@+id/xml_mainActivity_btn_voirTout"
+        app:layout_constraintTop_toTopOf="@+id/xml_mainActivity_btn_voirTout" />
 </android.support.constraint.ConstraintLayout>
