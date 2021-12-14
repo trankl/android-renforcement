@@ -46,18 +46,30 @@ public class MainActivity extends AppCompatActivity {
         m_btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MusicienModel l_obj_musicienModel = null;
+
                 try {
                     String l_str_nomMusicien = m_editText_nomMusicien.getText().toString();
                     int l_int_nombreEtoiles = Integer.parseInt(m_editText_nombreEtoiles.getText().toString());
                     boolean l_bool_musicienActif = m_switch_musicienActif.isChecked();
 
                     // On va créer une nouvelle instance de MusicienModel
-                    MusicienModel l_obj_musicienModel = new MusicienModel(-1, l_str_nomMusicien, l_int_nombreEtoiles, l_bool_musicienActif);
+                    l_obj_musicienModel = new MusicienModel(-1, l_str_nomMusicien, l_int_nombreEtoiles, l_bool_musicienActif);
 
                     Toast.makeText(MainActivity.this, "CLICK SUR BOUTON AJOUTER NOM ["+l_str_nomMusicien+"] / ETOILES ["+l_int_nombreEtoiles+"] / ACTIF ["+l_bool_musicienActif+"]", Toast.LENGTH_LONG).show();
+
+                    // Je veux mémoriser le musicien dans la base SQLite
+                    DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+
+                    // On réalise l'insertion en base
+                    boolean l_bool_success = dataBaseHelper.addOneMusicien(l_obj_musicienModel);
+
+                    Toast.makeText(MainActivity.this, "RESULTAT INSERTION EN BASE SQL LITE ["+l_bool_success+"]", Toast.LENGTH_LONG).show();
                 }
                 catch (Exception e) {
                     Toast.makeText(MainActivity.this, "PROBLEME LORS DE LA CREATION DU MUSICIEN ["+e.toString()+"]", Toast.LENGTH_LONG).show();
+
+                    l_obj_musicienModel = new MusicienModel(-1, "error", 0, false);
                 }
 
             }
