@@ -3,6 +3,7 @@ package com.perso.lesmusiciens;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -118,6 +119,29 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 initialiserLadapterDeLaListView();
                 // Toast.makeText(MainActivity.this, "CLICK SUR BOUTON VIEW ALL LISTE ["+l_List_tousLesMusiciens.toString()+"]", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Création du listener permettant de détecter le clic sur un ITEM de la LISTVIEW !!!
+        m_listView_listeDesMusiciens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // On récupère l'element sur lequel on a cliqué à l'aide de l'automatisme Android
+                // qui permet de détecter le numéro d'élément cliqué dans la liste (position)
+                MusicienModel l_MusicienModel_clickedItemInList = (MusicienModel) parent.getItemAtPosition(position);
+
+                // On utilise le database helper pour demander la suppression d'un musicien
+                m_dataBaseHelper.removeOneMusicien(l_MusicienModel_clickedItemInList);
+
+                // On execute la méthode pour réinitialiser l'adapter de la listview
+                initialiserLadapterDeLaListView();
+
+                String l_str_preparationMessageToast = "MUSICIEN SUPPRIME"
+                        + " ID ["+l_MusicienModel_clickedItemInList.getId()+"] "
+                        + " NOM ["+l_MusicienModel_clickedItemInList.getNomMusicien()+"] "
+                        + " ACTIF ["+l_MusicienModel_clickedItemInList.isActive()+"]";
+
+                Toast.makeText(MainActivity.this, l_str_preparationMessageToast , Toast.LENGTH_LONG).show();
             }
         });
     }
