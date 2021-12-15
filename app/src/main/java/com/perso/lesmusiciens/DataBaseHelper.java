@@ -66,6 +66,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    // Methode qui permet d'ajouter un musicien dans la base de donnée SQLite
     public boolean addOneMusicien(MusicienModel i_ref_musicienAAjouterDansLaBase) {
         // Déclaration de la variable en sortie
         boolean o_bool_resultatInsertion = false;
@@ -90,6 +91,37 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         else {o_bool_resultatInsertion = true;}
 
         return true;
+    }
+
+    // Methode qui permet de supprimer un musicien de la base de donnée
+    public boolean removeOneMusicien(MusicienModel i_ref_musicienModel) {
+        // On déclare la variable en sortie pour le résultat de la suppression initialement à false
+        boolean o_bool_resultatSuppression = false;
+
+        // On déclare une référence vers la base de donnée
+        SQLiteDatabase l_ref_db = this.getWritableDatabase();
+
+        // On récupère l'id à partir du getter dans l'objet Musicien Model fourni en paramètre
+        int l_int_musicienIdASupprimer = i_ref_musicienModel.getId();
+
+        // On doit rechercher le musicien dans la base de donnée SQLite
+        // La requete à executer est : DELETE FROM T_MUSICIENS WHERE MUSICIEN_ID = XXX
+        String l_str_requete = "DELETE FROM " + T_MUSICIENS
+                + " WHERE " +  F_MUSICIEN_ID + " = " + l_int_musicienIdASupprimer;
+
+        // On execute la requete NON PREPAREE
+        // TODO "PREPARER" avec le système de PREPARED STATEMENTS ???
+        Cursor l_Cursor_suppressionMusicien = l_ref_db.rawQuery(l_str_requete, null);
+
+        // CAS 1 : On a réussi à faire "MoveToFirst", alors on positionne le flag en sortie à true
+        if (l_Cursor_suppressionMusicien.moveToFirst()) {
+            o_bool_resultatSuppression = true;
+        }
+        // CAS 2 : On n'a pas réussi à faire le "MoveToFirst", on positionne le flag en sortie à false
+        else {o_bool_resultatSuppression = false;}
+
+        // On retourne le résultat de la suppression
+        return o_bool_resultatSuppression;
     }
 
     public List<MusicienModel> getAllMusiciens() {
