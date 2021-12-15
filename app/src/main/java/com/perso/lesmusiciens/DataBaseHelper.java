@@ -2,9 +2,13 @@ package com.perso.lesmusiciens;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // Notre DataBaseHelper réalise un extends de SQLiteOpenHelper
 // On devra redéfinir un ensemble de méthodes hérités de SQLiteOpenHelper
@@ -86,5 +90,51 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         else {o_bool_resultatInsertion = true;}
 
         return true;
+    }
+
+    public List<MusicienModel> getAllMusiciens() {
+        // On déclare et on initialise la ArrayList en sortie
+        List<MusicienModel> o_ALIST_tousLesMusiciens = new ArrayList<MusicienModel>();
+
+        // On déclare la requete à utiliser
+        // Requete à utiliser : SELECT * FROM T_MUSICIENS
+        String l_str_requete = "SELECT * FROM " + T_MUSICIENS;
+
+        // On récupère la référence vers la base de donnée
+        SQLiteDatabase l_ref_db = this.getWritableDatabase();
+
+        // On execute la requete avece un Raw Query (celle ci retourne un cursor)
+        Cursor l_Cursor_resultatALaRequete = l_ref_db.rawQuery(l_str_requete, null);
+
+        // On vérifie que l'on parvient à se positionner sur le premier élément
+        if (l_Cursor_resultatALaRequete.moveToFirst()==true) {
+            do {
+                // On récupère les données à partir du Cursor
+                int musicienId = l_Cursor_resultatALaRequete.getInt(0);
+                String musicienNom = l_Cursor_resultatALaRequete.getString(1);
+                int musicienNbEtoiles = l_Cursor_resultatALaRequete.getInt(2);
+                boolean musicienActif = l_Cursor_resultatALaRequete.getInt(3) == 1 ? true : false;
+
+                // On va reconstituer un musicien à partir des données du Cursor
+                MusicienModel t_musicienAAjouterDansLaListeResultats = new MusicienModel(musicienId, musicienNom, musicienNbEtoiles, musicienActif);
+
+                // On pense bien à ajouter dans la liste en sortie l'instance de Musicien que nous venons de reconstituer
+                o_ALIST_tousLesMusiciens.add(t_musicienAAjouterDansLaListeResultats);
+            }
+            while (l_Cursor_resultatALaRequete.moveToNext());
+        }
+        // CAS 2 : On n'a pas pu se positionner sur le premier élément (0 résultats)
+        else {
+
+        }
+
+        // Attention, on doit bien penser réaliser le close sur le cursor
+        l_Cursor_resultatALaRequete.close();
+
+        // Attention, on doit bien penser réaliser le close sur la base de donnée
+        l_ref_db.close();
+
+        // On retourne la liste de résultats
+        return o_ALIST_tousLesMusiciens;
     }
 }

@@ -9,6 +9,8 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     // Déclaration des variables membres
     Button m_btn_add;
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Toast.makeText(MainActivity.this, "CLICK SUR BOUTON AJOUTER NOM ["+l_str_nomMusicien+"] / ETOILES ["+l_int_nombreEtoiles+"] / ACTIF ["+l_bool_musicienActif+"]", Toast.LENGTH_LONG).show();
 
-                    // Je veux mémoriser le musicien dans la base SQLite
+                    // Je déclare et j'instancie un nouveau database Helper
                     DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
                     // On réalise l'insertion en base
@@ -79,7 +81,13 @@ public class MainActivity extends AppCompatActivity {
         m_btn_viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "CLICK SUR BOUTON VIEW ALL", Toast.LENGTH_LONG).show();
+                // Je déclare et j'instancie un nouveau database Helper
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+
+                // On demande au helper de nous retourner la liste de tous les musiciens
+                List<MusicienModel> l_List_tousLesMusiciens = dataBaseHelper.getAllMusiciens();
+
+                Toast.makeText(MainActivity.this, "CLICK SUR BOUTON VIEW ALL LISTE ["+l_List_tousLesMusiciens.toString()+"]", Toast.LENGTH_LONG).show();
             }
         });
     }
