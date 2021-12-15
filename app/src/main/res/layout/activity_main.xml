@@ -11,8 +11,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
         android:hint="@string/phrase_nomMusicien"
         android:inputType="textPersonName"
@@ -25,8 +26,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
         android:hint="@string/phrase_nombreDEtoiles"
         android:inputType="number"
@@ -62,17 +65,15 @@
         android:layout_height="wrap_content"
         android:text="@string/mot_ajouter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/xml_mainActivity_btn_voirTout"
-        app:layout_constraintTop_toTopOf="@+id/xml_mainActivity_btn_voirTout" />
+        app:layout_constraintTop_toTopOf="@+id/xml_mainActivity_btn_voirTout"
+        app:layout_constraintStart_toEndOf="@+id/xml_mainActivity_btn_voirTout" />
 
     <ListView
         android:id="@+id/xml_mainActivity_listView_listeMusiciens"
-        android:layout_width="409dp"
-        android:layout_height="532dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/xml_mainActivity_btn_voirTout"
         app:layout_constraintEnd_toEndOf="parent"
-
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xml_mainActivity_btn_voirTout" />
 </android.support.constraint.ConstraintLayout>
