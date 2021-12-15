@@ -3,6 +3,7 @@ package com.perso.lesmusiciens;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -87,7 +88,18 @@ public class MainActivity extends AppCompatActivity {
                 // On demande au helper de nous retourner la liste de tous les musiciens
                 List<MusicienModel> l_List_tousLesMusiciens = dataBaseHelper.getAllMusiciens();
 
-                Toast.makeText(MainActivity.this, "CLICK SUR BOUTON VIEW ALL LISTE ["+l_List_tousLesMusiciens.toString()+"]", Toast.LENGTH_LONG).show();
+                // On a besoin d'un adapteur pour gérer la ListView des musiciens
+                // On va interconnecter l'adapter avec l'element XML ListView
+                ArrayAdapter l_ArrayAdapter_pourlistViewMusicien = new ArrayAdapter<MusicienModel>(
+                        /* CONTEXT                      */ MainActivity.this,
+                        /* STYLE DE LISTE ADAPTER       */ android.R.layout.simple_list_item_1,
+                        /* LISTE CONNECTEE A L'ADAPTER  */ l_List_tousLesMusiciens
+                );
+
+                // On va définir l'adapter à utiliser pour notre objet Java ListView (lui même connecté à la listView XML)
+                m_listView_listeDesMusiciens.setAdapter(l_ArrayAdapter_pourlistViewMusicien);
+
+                // Toast.makeText(MainActivity.this, "CLICK SUR BOUTON VIEW ALL LISTE ["+l_List_tousLesMusiciens.toString()+"]", Toast.LENGTH_LONG).show();
             }
         });
     }
