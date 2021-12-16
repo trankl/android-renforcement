@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
     Switch m_switch_musicienActif;
     ListView m_listView_listeDesMusiciens;
     ArrayAdapter m_ArrayAdapter_pourlistViewMusicien;
-    DataBaseHelper m_dataBaseHelper;
+    DataBaseHelper m_ref_dataBaseHelper = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +33,23 @@ public class MainActivity extends AppCompatActivity {
         // On execute la méthode d'association XML / Java
         associerElementsXMLauJava();
 
-        // On execute la méthode qui permet d'initialiser le Database helper
-        initialiserDatabaseHelper();
-
         // On execute la méthode qui met en place les listeners
         mettreEnPlaceLesListeners();
+
+        // On execute la méthode qui va définir les références
+        definirLesReferencesReutilisables();
 
         // On execute la méthode qui permet d'initialiser l'adapter de la ListView
         initialiserLadapterDeLaListView();
     }
+
+    // Methode qui permet de définir les bonnes références vers les objets externes
+    private void definirLesReferencesReutilisables() {
+        // Je définie la référence vers l'objet centralisé database helper
+        m_ref_dataBaseHelper = MyApplication.getInstance().getDatabaseHelper();
+    }
+
+
 
     // Méthode qui permet de centraliser la connection de nos éléments XML à notre Activity Java
     private void associerElementsXMLauJava() {
@@ -52,16 +61,12 @@ public class MainActivity extends AppCompatActivity {
         m_listView_listeDesMusiciens = findViewById(R.id.xml_mainActivity_listView_listeMusiciens);
     }
 
-    // Methode qui permet d'initialiser le Database Helper
-    private void initialiserDatabaseHelper() {
-        // Je déclare et j'instancie un nouveau database Helper
-        m_dataBaseHelper = new DataBaseHelper(MainActivity.this);
-    }
+
 
     // Attention, il est nécessaire que le Database Helper soit bien initialisé
     private void initialiserLadapterDeLaListView() {
         // On demande au helper de nous retourner la liste de tous les musiciens
-        List<MusicienModel> l_List_tousLesMusiciens = m_dataBaseHelper.getAllMusiciens();
+        List<MusicienModel> l_List_tousLesMusiciens = getDataBaseHelper().getAllMusiciens();
 
         // On a besoin d'un adapteur pour gérer la ListView des musiciens
         // On va interconnecter l'adapter avec l'element XML ListView
@@ -131,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 MusicienModel l_MusicienModel_clickedItemInList = (MusicienModel) parent.getItemAtPosition(position);
 
                 // On utilise le database helper pour demander la suppression d'un musicien
-                m_dataBaseHelper.removeOneMusicien(l_MusicienModel_clickedItemInList);
+                getDataBaseHelper().removeOneMusicien(l_MusicienModel_clickedItemInList);
 
                 // On execute la méthode pour réinitialiser l'adapter de la listview
                 initialiserLadapterDeLaListView();
@@ -144,6 +149,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, l_str_preparationMessageToast , Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    // Getter pour le Database Helper dans l'activity Main
+    private DataBaseHelper getDataBaseHelper() {
+        return this.m_ref_dataBaseHelper;
     }
 
 }
